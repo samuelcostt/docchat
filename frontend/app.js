@@ -22,20 +22,30 @@ async function ask() {
   askBtn.textContent = "Pensando...";
 
   try {
-    const response = await fetch("/ask", {
+    const response = await fetch("/ask/stream", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ document: documentText, question }),
     });
-    const data = await response.json();
 
     if (!response.ok) {
+      const data = await response.json();
       const message = typeof data.detail === "string" ? data.detail : "Algo deu errado.";
       showAnswer(message, true);
       return;
     }
 
-    showAnswer(data.answer);
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let text = "";
+    showAnswer("...");
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      text += decoder.decode(value, { stream: true });
+      showAnswer(text);
+    }
   } catch (error) {
     showAnswer("Não consegui falar com o servidor.", true);
   } finally {
