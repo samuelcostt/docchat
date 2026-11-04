@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi.responses import RedirectResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from llm import ask_about_document, stream_answer
 
@@ -9,8 +9,8 @@ app = FastAPI(title="DocChat")
 
 
 class AskRequest(BaseModel):
-    document: str
-    question: str
+    document: str = Field(max_length=20000)
+    question: str = Field(max_length=500)
 
 
 class AskResponse(BaseModel):
@@ -32,7 +32,12 @@ def safe_stream(document: str, question: str):
         yield "\n\n[Erro ao consultar o modelo de IA. Tente novamente.]"
 
 
-@app.get("/")
+@app.get("/", include_in_schema=False)
+def root():
+    return RedirectResponse(url="/app/")
+
+
+@app.get("/health")
 def health():
     return {"status": "ok"}
 
