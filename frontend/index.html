@@ -10,12 +10,13 @@
     <main>
         <h1>DocChat</h1>
         <p class="subtitle">Cole um texto e faça perguntas sobre ele.</p>
+        <p class="subtitle">Demonstração: não cole dados pessoais ou sensíveis.</p>
 
         <label for="document">Documento</label>
-        <textarea id="document" rows="8" placeholder="Cole o texto aqui..."></textarea>
+        <textarea id="document" rows="8" maxlength="20000" placeholder="Cole o texto aqui..."></textarea>
 
         <label for="question">Pergunta</label>
-        <input id="question" type="text" placeholder="O que você quer saber?" />
+        <input id="question" type="text" maxlength="500" placeholder="O que você quer saber?" />
 
         <button id="ask-btn">Perguntar</button>
 
