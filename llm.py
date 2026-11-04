@@ -23,6 +23,7 @@ def ask_about_document(document: str, question: str) -> str:
         contents=prompt,
 
 config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT),
+    
     )
 
     return response.text
