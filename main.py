@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
 
 from llm import ask_about_document
 
@@ -37,3 +38,5 @@ def ask(request: AskRequest):
         )
 
     return AskResponse(answer=answer)
+
+app.mount("/app", StaticFiles(directory="frontend", html=True), name="frontend")
