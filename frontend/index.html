@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DocChat</title>
+    <link rel="stylesheet" href="style.css" /> 
+</head>
+<body>
+    <main>
+        <h1>DocChat</h1>
+        <p class="subtitle">Cole um texto e faça perguntas sobre ele.</p>
+
+        <label for="document">Documento</label>
+        <textarea id="document" rows="8" placeholder="Cole o texto aqui..."></textarea>
+
+        <label for="question">Pergunta</label>
+        <input id="question" type="text" placeholder="O que você quer saber?" />
+
+        <button id="ask-btn">Perguntar</button>
+
+        <div id="answer" class="answer" hidden></div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
